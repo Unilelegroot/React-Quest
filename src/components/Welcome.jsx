@@ -1,4 +1,4 @@
-import "../CSS/welcome.css"
+import "./welcome.css"
 function Welcome() {
     return (
         <section className="welcome">

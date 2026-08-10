@@ -1,4 +1,4 @@
-import "../CSS/footer.css"
+import "./footer.css"
 function Footer(){
     return(
         <footer className='footer'>
