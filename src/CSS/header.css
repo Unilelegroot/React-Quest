@@ -1,0 +1,30 @@
+.header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 10px 20px 20px;
+    background: var(--color-surface);
+    /* border-bottom: 1px solid var(--color-border); */
+}
+
+.header_logo{
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.header_subtitle{
+    font-size: 0.85rem;
+    opacity: 0.75;
+}
+
+.header_button{
+    padding: 7px 16px;
+    border-radius: 8px;
+    border: none;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
