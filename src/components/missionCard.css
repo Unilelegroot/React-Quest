@@ -25,16 +25,16 @@
   text-decoration: line-through;
 }
 
-.mission-card__header,
-.mission-card__footer {
+.mission-card_header,
+.mission-card_footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
 
-.mission-card__technology,
-.mission-card__difficulty {
+.mission-card_technology,
+.mission-card_difficulty {
   padding: 6px 10px;
   border-radius: 999px;
   background: var(--color-surface);
@@ -46,14 +46,14 @@
   margin: 0;
 }
 
-.mission-card__description {
+.mission-card_description {
   flex: 1;
   margin: 0;
   line-height: 1.5;
   opacity: 0.8;
 }
 
-.mission-card__button {
+.mission-card_button {
   padding: 9px 14px;
   border: none;
   border-radius: 8px;
