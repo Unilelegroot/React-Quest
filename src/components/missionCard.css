@@ -62,3 +62,13 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+.mission-card__button--delete {
+  background: red;
+  color: white;
+}
+
+.mission-card__button--edit {
+  background: rgb(255, 166, 0);
+  color: white;
+}

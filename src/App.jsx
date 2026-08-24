@@ -50,6 +50,8 @@ const initialMissions = [
 
 function App() {
   const [missions, setMissions] = useState(initialMissions)
+  const [editingMission, setEditingMission] = useState(null)
+
   function toogleMission(missionId) {
     const updatedMissions = missions.map((mission) => {
       if (mission.id === missionId) {
@@ -67,6 +69,20 @@ function App() {
     setMissions([...missions, newMission])
   }
 
+  function deleteMission(missionId) {
+    const updatedMissions = missions.filter(
+      (mission) => mission.id !== missionId
+    )
+    setMissions(updatedMissions)
+  }
+
+  function updateMission(updatedMission) {
+    const updatedMissions = missions.map((mission) =>
+      mission.id === updatedMission.id ? updatedMission : mission,
+    )
+    setMissions(updatedMissions)
+    setEditingMission(null)
+  }
 
   const completedMissions = missions.filter((mission) => mission.completed)
 
@@ -75,37 +91,37 @@ function App() {
   const earnedXP = completedMissions.reduce((total, mission) => total + mission.xp, 0)
 
   const summaryData = [
-  {
-    id: 1,
-    title: "Missões",
-    value: completedMissionsCount,
-    description: `${missions.length} missões cadastradas`
-  },
-  {
-    id: 2,
-    title: "Projetos",
-    value: 5,
-    description: "Projetos cadastrados"
-  },
-  {
-    id: 3,
-    title: "Tecnologias",
-    value: 5,
-    description: "Tecnologias dominadas"
-  },
-  {
-    id: 4,
-    title: "Avanço",
-    value: 5,
-    description: "Progresso na jornada"
-  },
-  {
-    id: 5,
-    title: "XP",
-    value: earnedXP,
-    description: "Experiência adquirida"
-  }
-]
+    {
+      id: 1,
+      title: "Missões",
+      value: completedMissionsCount,
+      description: `${missions.length} missões cadastradas`
+    },
+    {
+      id: 2,
+      title: "Projetos",
+      value: 5,
+      description: "Projetos cadastrados"
+    },
+    {
+      id: 3,
+      title: "Tecnologias",
+      value: 5,
+      description: "Tecnologias dominadas"
+    },
+    {
+      id: 4,
+      title: "Avanço",
+      value: 5,
+      description: "Progresso na jornada"
+    },
+    {
+      id: 5,
+      title: "XP",
+      value: earnedXP,
+      description: "Experiência adquirida"
+    }
+  ]
 
   return (
     <main className="app">
@@ -130,8 +146,10 @@ function App() {
           </div>
         </section>
 
-        <MissionForm 
+        <MissionForm
           onAddMission={addMission}
+          editingMission={editingMission}
+          onUpdateMission={updateMission}
         />
 
         <section className="missions-section">
@@ -154,6 +172,8 @@ function App() {
                 xp={mission.xp}
                 completed={mission.completed}
                 onToggle={() => toogleMission(mission.id)}
+                onDelete={() => deleteMission(mission.id)}
+                onEdit={() => setEditingMission(mission)}
               />
             ))}
           </div>
