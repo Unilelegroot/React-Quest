@@ -18,7 +18,7 @@ function MissionCard({ title, description, technology, difficulty, xp, completed
                     Editar
                 </button>
                 <button type ="button" className="mission-card_button mission-card__button--delete" onClick={onDelete}>
-                    Excluir
+                    ❌
                 </button>
             </div>
         </article>

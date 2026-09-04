@@ -11,6 +11,9 @@ function MissionSearch({ searchTerm, onSearchChange }) {
                 onChange={(e) => onSearchChange(e.target.value)}
                 placeholder="Digite o nome da missão..."
             ></input>
+            {searchTerm && (<button type="button" className="mission-search_button-clear" onClick={() => onSearchChange("")}>
+                Limpar Pesquisa
+            </button>)}
         </section>
     )
 }
