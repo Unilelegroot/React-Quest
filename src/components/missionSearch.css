@@ -1,0 +1,25 @@
+.mission-search {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 60px;
+}
+
+.mission-search label {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.mission-search input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #489c0899;
+    border-radius: 8px;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+}
+
+.mission-search input::placeholder {
+    color: #0d0d0d99;
+}
