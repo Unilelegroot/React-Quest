@@ -8,6 +8,7 @@ import SummaryCard from "./components/SummaryCard"
 import MissionCard from "./components/MissionCard"
 import MissionForm from "./components/MissionForm"
 import MissionSearch from "./components/MissionSearch"
+import MissionFilter from "./components/MissionFilter"
 
 
 
@@ -54,7 +55,9 @@ function App() {
   const [missions, setMissions] = useState(initialMissions)
   const [editingMission, setEditingMission] = useState(null)
   const [searchTerm, setSearchTerm] = useState("")
-  console.log(searchTerm)
+  const [statusFilter, setStatusFilter] = useState("Todas")
+  const [technologyFilter, setTechnologyFilter] = useState("Todas")
+  // console.log(searchTerm)
 
 
   function toogleMission(missionId) {
@@ -96,8 +99,21 @@ function App() {
   const earnedXP = completedMissions.reduce((total, mission) => total + mission.xp, 0)
 
   const filteredMissions = missions.filter(
-    (mission) => mission.title.toLowerCase().includes(searchTerm.toLowerCase())
-  
+    // (mission) => mission.title.toLowerCase().includes(searchTerm.toLowerCase())
+    (mission) => {
+      const matchesSearch = mission.title.toLowerCase().includes(
+        searchTerm.toLowerCase()
+      )
+      const matchesStatus = statusFilter === "Todas" ||
+        (statusFilter === "Concluídas" && mission.completed) ||
+        (statusFilter === "Pendentes" && !mission.completed)
+
+      const matchesTechnology = technologyFilter === "Todas" ||
+        mission.technology === technologyFilter
+
+
+      return matchesSearch && matchesStatus && matchesTechnology
+    }
   )
 
   const summaryData = [
@@ -133,6 +149,7 @@ function App() {
     }
   ]
 
+
   return (
     <main className="app">
       <Header />
@@ -163,10 +180,23 @@ function App() {
         />
 
         <section className="missions-section">
-          <MissionSearch 
+          <MissionSearch
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
           />
+          <MissionFilter
+            statusFilter={statusFilter}
+            onStatusChange={setStatusFilter}
+            technologyFilter={technologyFilter}
+            onTechnologyChange={setTechnologyFilter}
+          />
+
+          <p className="mission-results">
+            {filteredMissions.length}
+            {""}
+            {filteredMissions.length === 1 ? "Missão Encontrada" : "Missões Encontradas"}
+          </p>
+
           <div className="section-heading">
             <div>
               <p className="section-heading_tag">Central de Missões</p>
