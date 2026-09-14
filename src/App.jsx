@@ -28,7 +28,7 @@ const initialMissions = [
     description: "Use o mesmo componente para exibir dados diferentes.",
     technology: "React",
     difficulty: "Fácil",
-    xp: 50,
+    xp: 70,
     completed: true,
   },
   {
@@ -120,6 +120,8 @@ function App() {
     }
   )
 
+  const sortedMissions = [...filteredMissions].sort((a, b) => a.xp - b.xp)
+
   const summaryData = [
     {
       id: 1,
@@ -200,7 +202,7 @@ function App() {
           <p className="mission-results">
             {filteredMissions.length}
             {""}
-            {filteredMissions.length === 1 ? "Missão Encontrada" : "Missões Encontradas"}
+            {filteredMissions.length === 1 ? " Missão Encontrada" : " Missões Encontradas"}
           </p>
 
           <div className="section-heading">
@@ -212,20 +214,31 @@ function App() {
           </div>
 
           <div className="missions-grid">
-            {filteredMissions.map((mission) => (
-              <MissionCard
-                key={mission.id}
-                title={mission.title}
-                description={mission.description}
-                technology={mission.technology}
-                difficulty={mission.difficulty}
-                xp={mission.xp}
-                completed={mission.completed}
-                onToggle={() => toogleMission(mission.id)}
-                onDelete={() => deleteMission(mission.id)}
-                onEdit={() => setEditingMission(mission)}
-              />
-            ))}
+            {sortedMissions.length === 0
+              ? (<div className="empty-state">
+                <h3>Nenhuma missão encontrada</h3>
+
+                <label>
+                  Tente alterar sua busca ou
+                  seus filtros.
+                </label>
+              </div>)
+              :
+
+              (sortedMissions.map((mission) => (
+                <MissionCard
+                  key={mission.id}
+                  title={mission.title}
+                  description={mission.description}
+                  technology={mission.technology}
+                  difficulty={mission.difficulty}
+                  xp={mission.xp}
+                  completed={mission.completed}
+                  onToggle={() => toogleMission(mission.id)}
+                  onDelete={() => deleteMission(mission.id)}
+                  onEdit={() => setEditingMission(mission)}
+                />
+              )))}
           </div>
         </section>
 
