@@ -57,6 +57,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("")
   const [statusFilter, setStatusFilter] = useState("Todas")
   const [technologyFilter, setTechnologyFilter] = useState("Todas")
+  const [difficultyFilter, setDifficultyFilter] = useState("Todas")
   // console.log(searchTerm)
 
 
@@ -111,8 +112,11 @@ function App() {
       const matchesTechnology = technologyFilter === "Todas" ||
         mission.technology === technologyFilter
 
+      const matchesDifficulty = difficultyFilter === "Todas" ||
+        mission.difficulty === difficultyFilter
 
-      return matchesSearch && matchesStatus && matchesTechnology
+
+      return matchesSearch && matchesStatus && matchesTechnology && matchesDifficulty
     }
   )
 
@@ -189,6 +193,8 @@ function App() {
             onStatusChange={setStatusFilter}
             technologyFilter={technologyFilter}
             onTechnologyChange={setTechnologyFilter}
+            difficultyFilter={difficultyFilter}
+            onDifficultyChange={setDifficultyFilter}
           />
 
           <p className="mission-results">
