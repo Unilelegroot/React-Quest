@@ -1,15 +1,14 @@
-
 .welcome{
   width: 100%;
-  max-width: 720px;
+  /* max-width: 720px; */
   text-align: center;
   padding: 32px;
   margin: 0 auto;
-  margin-top: 30px;
-  border-radius: 16px;
+  margin-bottom: 30px;
+  border-radius: 14px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  box-shadow: 0 10px 30px rgba(36, 52, 71, 0.08);
+  /* box-shadow: 0 10px 30px rgba(36, 52, 71, 0.08); */
 }
 
 .welcome_tag{
@@ -49,5 +48,8 @@
 }
 
 .welcome button:hover{
-  background-color: var(--color-primary-dark);
+  padding: 8px 22px;
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
 }

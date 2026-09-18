@@ -12,9 +12,9 @@ function ProfileCard({name, codiname, favoriteArea, level}){
                     Perfil do Desenvolvedor
                 </p>
                 <h2>{name}</h2>
-                <p className="profile-card_codiname">Codinome: {codiname}</p>
-                <p className="profile-card_favoriteArea">Área Favorita: {favoriteArea}</p>
-                <p className="profile-card_level">Nível Atual: {level}</p>
+                <p className="profile-card_item">Codinome: {codiname}</p>
+                <p className="profile-card_item">Área Favorita: {favoriteArea}</p>
+                <p className="profile-card_item">Nível Atual: {level}</p>
             </div>
         </section>
     )

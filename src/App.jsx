@@ -1,5 +1,5 @@
 import { useState } from "react"
-import "./App.css"
+import "./app.css"
 import Header from "./components/Header"
 import Welcome from "./components/Welcome"
 import Footer from "./components/Footer"
@@ -9,6 +9,7 @@ import MissionCard from "./components/MissionCard"
 import MissionForm from "./components/MissionForm"
 import MissionSearch from "./components/MissionSearch"
 import MissionFilter from "./components/MissionFilter"
+import ProjectCard from "./components/ProjectCard"
 
 
 
@@ -51,13 +52,45 @@ const initialMissions = [
   },
 ]
 
+const initialProjects = [
+  {
+    id: 1,
+    title: "Desenho com Gestos",
+    description: "Te permite desenhar na tela usando gestos e movimentos.",
+    technologies: ["Python", "Mídia Pipe", "OpenCV"],
+    status: "Em andamento",
+  },
+
+  {
+    id: 2,
+    title: "Detector de Invasores",
+    description: "Jogo desenvolvido em Python com detecção e interação.",
+    technologies: ["Python", "Pygame"],
+    status: "Concluído",
+  },
+
+  {
+    id: 3,
+    title: "Loja Virtual com IA",
+    description:
+      "Loja virtual que utiliza inteligência artificial para auxiliar o usuário.",
+    technologies: ["Python", "Flask", "HTML", "CSS"],
+    status: "Concluído",
+  },
+
+]
+
 function App() {
   const [missions, setMissions] = useState(initialMissions)
+  // const [projects, setProjects] = useState(initialProjects)
   const [editingMission, setEditingMission] = useState(null)
   const [searchTerm, setSearchTerm] = useState("")
   const [statusFilter, setStatusFilter] = useState("Todas")
   const [technologyFilter, setTechnologyFilter] = useState("Todas")
   const [difficultyFilter, setDifficultyFilter] = useState("Todas")
+  const [sortOrder, setSortOrder] = useState("Maior XP");
+
+
   // console.log(searchTerm)
 
 
@@ -120,7 +153,16 @@ function App() {
     }
   )
 
-  const sortedMissions = [...filteredMissions].sort((a, b) => a.xp - b.xp)
+  const sortedMissions =
+    [...filteredMissions].sort(
+      (a, b) => {
+        if (sortOrder === "Menor XP") {
+          return a.xp - b.xp; //menor para o maior
+        }
+
+        return b.xp - a.xp; //maior para o menor
+      }
+    );
 
   const summaryData = [
     {
@@ -155,11 +197,15 @@ function App() {
     }
   ]
 
+  onclick = () => {
+    setSortedMission()
+  }
 
   return (
     <main className="app">
       <Header />
       <div className="dashboard">
+        <Welcome />
         <ProfileCard
           name="Helena"
           codiname="Helena"
@@ -197,6 +243,8 @@ function App() {
             onTechnologyChange={setTechnologyFilter}
             difficultyFilter={difficultyFilter}
             onDifficultyChange={setDifficultyFilter}
+            sortOrder={sortOrder}
+            onSortOrderChange={setSortOrder}
           />
 
           <p className="mission-results">
@@ -242,7 +290,29 @@ function App() {
           </div>
         </section>
 
-        <Welcome />
+        <section className="projects-section">
+          <div className="project-section_header">
+            <div>
+              <span className="section-heading_tag">Projetos</span>
+              <h2>Central de Projetos</h2>
+              <p>Projetos construídos durante a minha jornada.</p>
+            </div>
+            <div className="projects-grid">
+              {
+                initialProjects.map((project) => (
+                  <ProjectCard
+                    key={project.id}
+                    title={project.title}
+                    description={project.description}
+                    technologies={project.technologies}
+                    status={project.status}
+                  />
+                ))
+              }
+            </div>
+          </div>
+        </section>
+
       </div>
       <Footer />
     </main>
