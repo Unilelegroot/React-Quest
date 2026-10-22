@@ -9,6 +9,7 @@ function ProjectPage({ projects, addProject }) {
                     <span className="section-heading_tag">Projetos</span>
                     <h2>Central de Projetos</h2>
                     <p>Projetos construídos durante a minha jornada.</p>
+                    <p className="projects-count">Total de projetos:{" "}{projects.length}</p>
                 </div>
             </div>
 
