@@ -90,6 +90,7 @@ function App() {
   const [difficultyFilter, setDifficultyFilter] = useState("Todas")
   const [sortOrder, setSortOrder] = useState("Maior XP");
   const [projects, setProjects] = useState(initialProjects)
+  const [editProject, setEditProject] = useState(null)
 
   // console.log(searchTerm)
 
@@ -129,6 +130,24 @@ function App() {
   function addProject(newProject) {
     setProjects([...projects, newProject])
   }
+
+  function deleteProject(projectId) {
+    const deveriaDeletar = window.confirm("Tem certeza que deseja excluir este projeto?")
+    if (!deveriaDeletar) {
+      return
+    }
+    setProjects(projects.filter((project) => project.id !== projectId))
+  }
+
+  function updateProject(updatedProject) {
+    const updatedProjects = projects.map((project) =>
+      project.id === updatedProject.id ? updatedProject : project,
+    )
+    setProjects(updatedProjects)
+    setEditProject(null)
+  }
+
+
 
   const completedMissions = missions.filter((mission) => mission.completed)
 
@@ -242,7 +261,13 @@ function App() {
 
           <Route
             path="/project"
-            element={<ProjectPage projects={projects} addProject={addProject} />}
+            element={<ProjectPage 
+              projects={projects} 
+              addProject={addProject} 
+              deleteProject={deleteProject} 
+              updateProject={updateProject} 
+              editProject={editProject}
+              setEditProject={setEditProject} />}
           />
 
           <Route

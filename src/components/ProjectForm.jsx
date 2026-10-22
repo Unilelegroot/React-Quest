@@ -1,23 +1,40 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "./projectForm.css"
 
-function ProjectForm({ onAddProject }) {
+function ProjectForm({ onAddProject, editProject, onUpdateProject }) {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [technologies, setTechnologies] = useState("")
     const [status, setStatus] = useState("Em andamento")
 
+    useEffect(() => {
+        if (editProject) {
+            // Synchronize the form fields when the selected project changes.
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setTitle(editProject.title)
+            setDescription(editProject.description)
+            setTechnologies(editProject.technologies.join(", "))
+            setStatus(editProject.status)
+        }
+    }, [editProject])
+
     function handleSubmit(event) {
         event.preventDefault()
 
-        onAddProject({
-            id: Date.now(),
+        const projectData = {
+            id: editProject ? editProject.id : Date.now(),
             title,
             description,
             technologies: technologies.split(",").map((tech) => tech.trim()),
             status,
-        })
-        
+        }
+
+        if (editProject) {
+            onUpdateProject(projectData)
+        } else {
+            onAddProject(projectData)
+        }
+
         setTitle("")
         setDescription("")
         setTechnologies("")
@@ -76,7 +93,7 @@ function ProjectForm({ onAddProject }) {
                 </div>
 
                 <button className="project-form__button" type="submit">
-                    Adicionar Projeto
+                    {editProject ? "Salvar Alterações" : "Adicionar Projeto"}
                 </button>
             </form>
         </section>

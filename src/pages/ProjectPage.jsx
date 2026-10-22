@@ -1,7 +1,7 @@
 import ProjectForm from "../components/ProjectForm"
 import ProjectCard from "../components/ProjectCard"
 
-function ProjectPage({ projects, addProject }) {
+function ProjectPage({ projects, addProject, deleteProject, editProject, setEditProject, updateProject }) {
     return (
         <section className="projects-section">
             <div className="projects-section_header">
@@ -15,6 +15,8 @@ function ProjectPage({ projects, addProject }) {
 
             <ProjectForm 
                 onAddProject={addProject} 
+                onUpdateProject={updateProject}
+                editProject={editProject}
             />
 
 
@@ -26,6 +28,8 @@ function ProjectPage({ projects, addProject }) {
                         description={project.description}
                         technologies={project.technologies}
                         status={project.status}
+                        onDelete={() => deleteProject(project.id)}
+                        onEdit={() => setEditProject(project)}
                     />
                 ))}
             </div>
