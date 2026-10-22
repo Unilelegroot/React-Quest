@@ -89,7 +89,7 @@ function App() {
   const [technologyFilter, setTechnologyFilter] = useState("Todas")
   const [difficultyFilter, setDifficultyFilter] = useState("Todas")
   const [sortOrder, setSortOrder] = useState("Maior XP");
-
+  const [projects, setProjects] = useState(initialProjects)
 
   // console.log(searchTerm)
 
@@ -124,6 +124,10 @@ function App() {
     )
     setMissions(updatedMissions)
     setEditingMission(null)
+  }
+
+  function addProject(newProject) {
+    setProjects([...projects, newProject])
   }
 
   const completedMissions = missions.filter((mission) => mission.completed)
@@ -238,7 +242,7 @@ function App() {
 
           <Route
             path="/project"
-            element={<ProjectPage projects={initialProjects} />}
+            element={<ProjectPage projects={projects} addProject={addProject} />}
           />
 
           <Route

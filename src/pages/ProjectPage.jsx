@@ -1,6 +1,7 @@
+import ProjectForm from "../components/ProjectForm"
 import ProjectCard from "../components/ProjectCard"
 
-function ProjectPage({ projects }) {
+function ProjectPage({ projects, addProject }) {
     return (
         <section className="projects-section">
             <div className="projects-section_header">
@@ -10,6 +11,12 @@ function ProjectPage({ projects }) {
                     <p>Projetos construídos durante a minha jornada.</p>
                 </div>
             </div>
+
+            <ProjectForm 
+                onAddProject={addProject} 
+            />
+
+
             <div className="projects-grid">
                 {projects.map((project) => (
                     <ProjectCard
