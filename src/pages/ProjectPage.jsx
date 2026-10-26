@@ -1,5 +1,6 @@
 import ProjectForm from "../components/ProjectForm"
 import ProjectCard from "../components/ProjectCard"
+import GitHubExplorer from "../components/GitHubExplorer"
 
 function ProjectPage({ projects, addProject, deleteProject, editProject, setEditProject, updateProject }) {
     return (
@@ -33,6 +34,8 @@ function ProjectPage({ projects, addProject, deleteProject, editProject, setEdit
                     />
                 ))}
             </div>
+
+            <GitHubExplorer />
         </section>
     )
 }
