@@ -29,6 +29,8 @@ function ProjectPage({ projects, addProject, deleteProject, editProject, setEdit
                         description={project.description}
                         technologies={project.technologies}
                         status={project.status}
+                        gitHubURL={project.gitHubURL}
+                        deployURL={project.deployURL}
                         onDelete={() => deleteProject(project.id)}
                         onEdit={() => setEditProject(project)}
                     />

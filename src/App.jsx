@@ -59,6 +59,8 @@ const initialProjects = [
     description: "Te permite desenhar na tela usando gestos e movimentos.",
     technologies: ["Python", "Mídia Pipe", "OpenCV"],
     status: "Em andamento",
+    gitHubURL: "https://github.com/seu-usuario/desenho-com-gestos",
+    deployURL: "",
   },
 
   {
@@ -67,6 +69,8 @@ const initialProjects = [
     description: "Jogo desenvolvido em Python com detecção e interação.",
     technologies: ["Python", "Pygame"],
     status: "Concluído",
+    gitHubURL: "https://github.com/seu-usuario/detector-de-invasores",
+    deployURL: "",
   },
 
   {
@@ -76,6 +80,19 @@ const initialProjects = [
       "Loja virtual que utiliza inteligência artificial para auxiliar o usuário.",
     technologies: ["Python", "Flask", "HTML", "CSS"],
     status: "Concluído",
+    gitHubURL: "https://github.com/seu-usuario/loja-virtual-com-ia",
+    deployURL: "",
+  },
+  
+  {
+    id: 4,
+    title: "React Quest",
+    description:
+      "Aplicação web que permite criar e gerenciar missões de aprendizado em React.",
+    technologies: ["React", "HTML", "CSS", "JavaScript", "Vite"],
+    status: "Em andamento",
+    gitHubURL: "https://github.com/seu-usuario/react-quest",
+    deployURL: "",
   },
 
 ]
@@ -155,6 +172,12 @@ function App() {
 
   const earnedXP = completedMissions.reduce((total, mission) => total + mission.xp, 0)
 
+  const distinctTechnologies = new Set(
+    projects.flatMap((project) =>
+      project.technologies.map((technology) => technology.trim()).filter(Boolean),
+    ),
+  ).size
+
   const filteredMissions = missions.filter(
     // (mission) => mission.title.toLowerCase().includes(searchTerm.toLowerCase())
     (mission) => {
@@ -197,14 +220,14 @@ function App() {
     {
       id: 2,
       title: "Projetos",
-      value: 5,
+      value: projects.length,
       description: "Projetos cadastrados"
     },
     {
       id: 3,
       title: "Tecnologias",
-      value: 5,
-      description: "Tecnologias dominadas"
+      value: distinctTechnologies,
+      description: "Tecnologias utilizadas em projetos"
     },
     {
       id: 4,

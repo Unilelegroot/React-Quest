@@ -6,6 +6,8 @@ function ProjectForm({ onAddProject, editProject, onUpdateProject }) {
     const [description, setDescription] = useState("")
     const [technologies, setTechnologies] = useState("")
     const [status, setStatus] = useState("Em andamento")
+    const [gitHubURL, setGitHubURL] = useState("")
+    const [deployURL, setDeployURL] = useState("")
 
     useEffect(() => {
         if (editProject) {
@@ -15,11 +17,19 @@ function ProjectForm({ onAddProject, editProject, onUpdateProject }) {
             setDescription(editProject.description)
             setTechnologies(editProject.technologies.join(", "))
             setStatus(editProject.status)
+            setGitHubURL(editProject.gitHubURL || "")
+            setDeployURL(editProject.deployURL || "")
         }
     }, [editProject])
 
     function handleSubmit(event) {
         event.preventDefault()
+        
+        if ((gitHubURL && !gitHubURL.startsWith("http://") && !gitHubURL.startsWith("https://")) || 
+            (deployURL && !deployURL.startsWith("http://") && !deployURL.startsWith("https://"))) {
+            alert("Por favor, insira URLs válidas para o GitHub e/ou o deploy.")
+            return
+        }
 
         const projectData = {
             id: editProject ? editProject.id : Date.now(),
@@ -27,6 +37,8 @@ function ProjectForm({ onAddProject, editProject, onUpdateProject }) {
             description,
             technologies: technologies.split(",").map((tech) => tech.trim()),
             status,
+            gitHubURL,
+            deployURL,
         }
 
         if (editProject) {
@@ -39,6 +51,8 @@ function ProjectForm({ onAddProject, editProject, onUpdateProject }) {
         setDescription("")
         setTechnologies("")
         setStatus("Em andamento")
+        setGitHubURL("")
+        setDeployURL("")
     }
 
     return (
@@ -90,6 +104,26 @@ function ProjectForm({ onAddProject, editProject, onUpdateProject }) {
                         <option value="Em andamento">Em andamento</option>
                         <option value="Concluído">Concluído</option>
                     </select>
+                </div>
+
+                <div className="project-form_group">
+                    <label htmlFor="project-github-url">GitHub URL</label>
+                    <input
+                        id="project-github-url"
+                        type="text"
+                        value={gitHubURL}
+                        onChange={(event) => setGitHubURL(event.target.value)}
+                    />
+                </div>
+
+                <div className="project-form_group">
+                    <label htmlFor="project-deploy-url">Deploy URL</label>
+                    <input
+                        id="project-deploy-url"
+                        type="text"
+                        value={deployURL}
+                        onChange={(event) => setDeployURL(event.target.value)}
+                    />
                 </div>
 
                 <button className="project-form__button" type="submit">
