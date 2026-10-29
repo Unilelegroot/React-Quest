@@ -1,0 +1,29 @@
+.skillCard {
+    padding: 20px;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--color-surface);
+}
+
+.skillCard_technology {
+    margin: 0 0 8px;
+    color: var(--color-text);
+}
+
+.skillCard_xp {
+    margin: 0 0 12px;
+    color: var(--color-muted);
+}
+
+.skillCard_progress {
+    height: 10px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--color-border);
+}
+
+.skillCard_progressBar {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--color-primary);
+}

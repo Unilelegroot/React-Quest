@@ -90,7 +90,7 @@ const initialProjects = [
     description:
       "Aplicação web que permite criar e gerenciar missões de aprendizado em React.",
     technologies: ["React", "HTML", "CSS", "JavaScript", "Vite"],
-    status: "Em andamento",
+    status: "Concluído",
     gitHubURL: "https://github.com/seu-usuario/react-quest",
     deployURL: "",
   },
@@ -210,6 +210,26 @@ function App() {
       }
     );
 
+
+  const completedProjects = projects.filter((project) => project.status === "Concluído")
+  const tecXP = {}
+  completedProjects.forEach((project) => {
+    project.technologies.forEach((technology) => {
+      if (!tecXP[technology]) {
+        tecXP[technology] = 0
+      }
+      tecXP[technology] += 50
+    })
+  })
+
+  const skills = Object.entries(tecXP).map(([technology, xp]) => ({ technology, xp }))
+  const hasSkillAchievement =
+  skills.some(
+    (skill) =>
+      skill.xp >= 100
+  );
+
+  const isExplorer = skills.length >= 3
   const summaryData = [
     {
       id: 1,
@@ -295,7 +315,12 @@ function App() {
 
           <Route
             path="/evolution"
-            element={<EvolutionPage />}
+            element={
+            <EvolutionPage 
+            skills={skills} 
+            hasSkillAchievement={hasSkillAchievement}
+            isExplorer={isExplorer}
+            />}
           />
         </Routes>
       </div>
