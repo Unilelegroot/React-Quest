@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Routes, Route } from "react-router"
-import "./app.css"
+import "./App.css"
 
 import DashboardPage from "./pages/DashboardPage";
 import MissionPage from "./pages/MissionPage";
