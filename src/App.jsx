@@ -97,6 +97,18 @@ const initialProjects = [
 
 ]
 
+function createProjectFromRepository(repository) {
+ return{
+  id: crypto.randomUUID(),
+  title: repository.name,
+  description: repository.description || "Sem descrição",
+  technologies: repository.language ? [repository.language] : [],
+  status: "Em andamento",
+  gitHubURL: repository.html_url,
+  deployURL: repository.deploy_url || "",
+} 
+}
+
 function App() {
   const [missions, setMissions] = useState(initialMissions)
   // const [projects, setProjects] = useState(initialProjects)
@@ -148,6 +160,19 @@ function App() {
     setProjects([...projects, newProject])
   }
 
+  function importRepository(repository) {
+    const normalizeURL = (url)  => (url || "").trim().replace(/\/$/, "").replace(/\git$/i, "").toLowerCase()
+    const repositoryURL = normalizeURL(repository.html_url)
+    const alreadyExists = projects.some((project) => normalizeURL(project.gitHubURL) === repositoryURL)
+    if (alreadyExists) {
+      // alert("Este repositório já foi importado como projeto.")
+      return false
+    }
+    const newProject = createProjectFromRepository(repository)
+    addProject(newProject)
+    return true
+  }
+  
   function deleteProject(projectId) {
     const deveriaDeletar = window.confirm("Tem certeza que deseja excluir este projeto?")
     if (!deveriaDeletar) {
@@ -310,7 +335,9 @@ function App() {
               deleteProject={deleteProject} 
               updateProject={updateProject} 
               editProject={editProject}
-              setEditProject={setEditProject} />}
+              setEditProject={setEditProject} 
+              importRepository={importRepository}
+              />}
           />
 
           <Route

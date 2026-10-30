@@ -1,6 +1,7 @@
 import "./gitHubRepoCard.css";
 
-function GitHubRepoCard({ repository }) {
+function GitHubRepoCard({ repository, onImportRepository, isImported }) {
+
   return (
     <article className="github-repo-card">
       <h3>{repository.name}</h3>
@@ -8,13 +9,18 @@ function GitHubRepoCard({ repository }) {
       <p>{repository.description || "Sem descrição disponível."}</p>
 
       <div className="github-repo-card__details">
-        <span>Linguagem: {repository.language || "Não informada"}</span>
+        <span>Linguagem: {repository.language || repository.topics}</span>
 
         <span>⭐ {repository.stargazers_count}</span>
       </div>
-      <a href={repository.html_url} target="_blank" rel="noopener noreferrer">
-        Ver no GitHub
-      </a>
+      <button
+        type="button"
+        onClick={() => onImportRepository(repository)}
+        disabled={isImported}
+        className="github-repo-card__import-button"
+      >
+        {isImported ? "Já Importado" : "Importar"}
+      </button>
     </article>
   );
 }

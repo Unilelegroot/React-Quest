@@ -32,3 +32,48 @@
   color: inherit;
   font-weight: 700;
 }
+
+.github-repo-card__import-button {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #2f9e44;
+  border-radius: 8px;
+  background: #1f6f34;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.github-repo-card__import-button:not(:disabled):hover {
+  border-color: #3fb950;
+  background: #238636;
+}
+
+.github-repo-card__import-button:not(:disabled):active {
+  background: #185c2b;
+}
+
+.github-repo-card__import-button:focus-visible {
+  outline: 2px solid #79c0ff;
+  outline-offset: 3px;
+}
+
+.github-repo-card__import-button:disabled {
+  border-color: #3a4651;
+  background: #202a33;
+  color: #b7c9b9;
+  cursor: default;
+}
+
+@media (max-width: 480px) {
+  .github-repo-card__import-button {
+    min-height: 48px;
+    padding: 12px 14px;
+  }
+}

@@ -2,7 +2,7 @@ import ProjectForm from "../components/ProjectForm"
 import ProjectCard from "../components/ProjectCard"
 import GitHubExplorer from "../components/GitHubExplorer"
 
-function ProjectPage({ projects, addProject, deleteProject, editProject, setEditProject, updateProject }) {
+function ProjectPage({ projects, addProject, deleteProject, editProject, setEditProject, updateProject, importRepository }) {
     return (
         <section className="projects-section">
             <div className="projects-section_header">
@@ -37,7 +37,10 @@ function ProjectPage({ projects, addProject, deleteProject, editProject, setEdit
                 ))}
             </div>
 
-            <GitHubExplorer />
+            <GitHubExplorer 
+                projects={projects}
+                onImportRepository={importRepository}
+            />
         </section>
     )
 }

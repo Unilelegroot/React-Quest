@@ -2,7 +2,7 @@ import { useState } from 'react'
 import "./gitHubExplorer.css"
 import GitHubRepoCard from './GitHubRepoCard'
 
-function GitHubExplorer() {
+function GitHubExplorer({ projects, onImportRepository }) {
     const [repositories, setRepositories] = useState([])
     const [username, setUsername] = useState('unilelegroot')
     const [loading, setLoading] = useState(false)
@@ -48,6 +48,15 @@ function GitHubExplorer() {
         } finally {
             setLoading(false);
         }
+    }
+
+    function handleImport(repository){
+        const imported = onImportRepository(repository)
+        if (!imported) {
+            window.alert("Repositório já foi importado ou não é válido.")
+            return
+        }
+        window.alert("Repositório importado com sucesso!")
     }
 
     return (
@@ -112,9 +121,29 @@ function GitHubExplorer() {
             {
                 !loading && !error && (
                     <div className="github-repositories">
-                        {repositories.map((repository) => (
-                            <GitHubRepoCard key={repository.id} repository={repository} />
-                        ))}
+                        {repositories.map((repository) => {
+                            const normalizeUrl = (url) =>
+                                (url || "")
+                                    .trim()
+                                    .replace(/\/+$/, "")
+                                    .replace(/\.git$/i, "")
+                                    .toLowerCase();
+
+                            const isImported = projects.some(
+                                (project) =>
+                                    normalizeUrl(project.githubUrl) ===
+                                    normalizeUrl(repository.html_url)
+                            );
+
+                            return (
+                                <GitHubRepoCard
+                                    key={repository.id}
+                                    repository={repository}
+                                    onImportRepository={handleImport}
+                                    isImported={isImported}
+                                />
+                            );
+                        })}
                     </div>
                 )
             }
